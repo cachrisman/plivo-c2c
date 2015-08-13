@@ -1,5 +1,5 @@
 class CallsController < ApplicationController
-  before_action :set_call, only: [:show, :edit, :update, :answer_callback, :hangup_callback, :destroy]
+  before_action :set_call, only: [:show, :edit, :update, :destroy]
   before_action :set_plivo, only: [:create, :hangup]
 
   # GET /calls
@@ -31,8 +31,9 @@ class CallsController < ApplicationController
         id = @call.id
         response1 = make_call(call_params['from'], id)
         response2 = make_call(call_params['to'], id)
-        # p "Response1: " + response1.to_s
-        # p "Response2: " + response2.to_s
+        p "Response1: " + response1.to_s
+        p "Response2: " + response2.to_s
+        @call.update({'call1_request_uuid'=>response1['request_uuid'],'call2_request_uuid'=>response2['request_uuid']})
         format.html { redirect_to @call, notice: 'Call was successfully created.' }
         format.json { render :show, status: :created, location: @call }
       else
