@@ -1,6 +1,6 @@
 class CallsController < ApplicationController
   before_filter :authenticate
-  skip_before_action :verify_authenticity_token, only: [:update, :hangup_callback], if: :xml_request?
+  skip_before_action :verify_authenticity_token, only: [:update, :hangup_callback] if :xml_request?
   before_action :set_call, only: [:show, :edit, :update, :destroy]
   before_action :set_plivo, only: [:create, :hangup]
 
@@ -122,4 +122,5 @@ class CallsController < ApplicationController
     def xml_request?
       request.format.xml?
     end
+
 end

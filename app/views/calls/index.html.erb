@@ -14,8 +14,8 @@
   <tbody>
     <% @calls.each do |call| %>
       <tr>
-        <td><%= call.name %> &lt<%= call.from %>&gt</td>
-        <td>&lt<%= call.to %>&gt</td>
+        <td><%= call.name %> &lt<%= call.From %>&gt</td>
+        <td>&lt<%= call.To %>&gt</td>
         <td><%= link_to 'Show', call %></td>
         <td><%= link_to 'Edit', edit_call_path(call) %></td>
         <td><%= link_to 'Destroy', call, method: :delete, data: { confirm: 'Are you sure?' } %></td>
