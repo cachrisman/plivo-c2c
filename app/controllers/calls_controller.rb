@@ -8,6 +8,10 @@ class CallsController < ApplicationController
     @calls = Call.all
   end
 
+  def active
+    @calls = Call.where.not(CallStatus: "completed")
+  end
+
   def show
     respond_to do |format|
       format.html
