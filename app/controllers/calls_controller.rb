@@ -1,4 +1,5 @@
 class CallsController < ApplicationController
+  http_basic_authenticate_with name: "plivo", password: "Charlie1234"
   skip_before_action :verify_authenticity_token, only: [:update, :hangup_callback], if: :xml_request?
   before_action :set_call, only: [:show, :edit, :update, :destroy]
   before_action :set_plivo, only: [:create, :hangup]
@@ -15,8 +16,7 @@ class CallsController < ApplicationController
            'Conference' => "demo" + Time.now().strftime('%Y%m%d')}.to_xml(:root=>'Response')
         render :xml => r
       }
-
-
+    end
   end
 
   def new
