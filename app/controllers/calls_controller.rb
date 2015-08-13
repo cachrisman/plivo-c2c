@@ -31,9 +31,7 @@ class CallsController < ApplicationController
         id = @call.id
         response1 = make_call(call_params['from'], id)
         response2 = make_call(call_params['to'], id)
-        p "Response1: " + response1.to_s
-        p "Response2: " + response2.to_s
-        @call.update({'call1_request_uuid'=>response1['request_uuid'],'call2_request_uuid'=>response2['request_uuid']})
+        @call.update({'call1_request_uuid'=>response1[1]['request_uuid'],'call2_request_uuid'=>response2[1]['request_uuid']})
         format.html { redirect_to @call, notice: 'Call was successfully created.' }
         format.json { render :show, status: :created, location: @call }
       else
@@ -97,7 +95,6 @@ class CallsController < ApplicationController
         'from' => ENV['CALLERID'],
         'to' => number,
         'answer_url' => call_url(id) + ".xml",
-        'answer_method' => 'PUT',
         'hangup_url' => hangup_callback_url(id),
         'time_limit' => '30',
         'ring_timeout' => '15'
