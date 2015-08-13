@@ -9,7 +9,7 @@ class CallsController < ApplicationController
   end
 
   def active
-    @calls = Call.where.(CallStatus: "in-progress")
+    @calls = Call.where(CallStatus: "in-progress")
   end
 
   def show
