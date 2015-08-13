@@ -1,5 +1,5 @@
 class CallsController < ApplicationController
-  http_basic_authenticate_with name: "plivo", password: "Charlie1234"
+  before_filter :authenticate
   skip_before_action :verify_authenticity_token, only: [:update, :hangup_callback], if: :xml_request?
   before_action :set_call, only: [:show, :edit, :update, :destroy]
   before_action :set_plivo, only: [:create, :hangup]
@@ -81,6 +81,14 @@ class CallsController < ApplicationController
   end
 
   private
+    def authenticate
+      if not xml_request?
+        authenticate_or_request_with_http_basic do |name, password|
+          name == "plivo" &&  password == "Charlie1234"
+        end
+      end
+    end
+
     def set_call
       @call = Call.find(params[:id])
     end
