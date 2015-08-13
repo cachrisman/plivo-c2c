@@ -1,7 +1,7 @@
 class CallsController < ApplicationController
   before_filter :authenticate
   skip_before_action :verify_authenticity_token, only: [:update, :hangup_callback] if :xml_request?
-  before_action :set_call, only: [:show, :edit, :update, :destroy]
+  before_action :set_call, only: [:show, :edit, :update, :hangup_callback, :destroy]
   before_action :set_plivo, only: [:create, :hangup]
 
   def index
@@ -63,11 +63,11 @@ class CallsController < ApplicationController
   def hangup_callback
     respond_to do |format|
       if @call.update(update_call_params)
-        format.html { redirect_to calls_url, notice: 'Call was successfully destroyed.' }
         format.json { head :no_content }
+        format.xml  { head :no_content }
       else
-        format.html { render :edit }
         format.json { render json: @call.errors, status: :unprocessable_entity }
+        format.xml  { render xml:  @call.errors, status: :unprocessable_entity }
       end
     end
   end
