@@ -9,7 +9,7 @@ class CallsController < ApplicationController
   end
 
   def active
-    @calls = Call.where.not(CallStatus: "completed")
+    @calls = Call.where.(CallStatus: "in-progress")
   end
 
   def show
@@ -66,7 +66,7 @@ class CallsController < ApplicationController
 
   def hangup_callback
     respond_to do |format|
-      if @call.update(update_call_params)
+      if @call['request_uuids'].include?(params[:RequestUUID]) and @call.update(update_call_params)
         format.json { head :no_content }
         format.xml  { head :no_content }
       else
@@ -118,9 +118,7 @@ class CallsController < ApplicationController
     end
 
     def update_call_params
-      par = params.permit(:To, :CallStatus, :CallUUID)
-      p "Update_call_params: " + par.to_s
-      par
+      params.permit(:CallStatus, :CallUUID)
     end
 
     def xml_request?
