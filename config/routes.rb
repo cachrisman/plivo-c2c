@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :calls
   root 'calls#new'
-  get '/callback', to: 'calls#callback'
-  get '/hangup/:id', to: 'calls#hangup', as: 'hangup'
+  post '/callback/hangup/:id', to: 'calls#hangup_callback', as: 'hangup_callback'
 end
