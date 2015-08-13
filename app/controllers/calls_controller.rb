@@ -118,7 +118,7 @@ class CallsController < ApplicationController
     end
 
     def update_call_params
-      par = params.permit(:From, :To, :CallStatus, :CallUUID)
+      par = params.permit(:To, :CallStatus, :CallUUID)
       p "Update_call_params: " + par.to_s
       par
     end
