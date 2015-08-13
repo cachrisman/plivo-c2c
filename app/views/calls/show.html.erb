@@ -1,12 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Time:</strong>
+  <%= @call.created_at %>
+</p>
+
+<p>
   <strong>From:</strong>
   <%= @call.name %> &lt<%= @call.From %>&gt
 </p>
 
 <p>
   <strong>To:</strong> &lt<%= @call.To %>&gt
+</p>
+
+<p>
+  <strong>CallUUID:</strong>
+  <%= @call.CallUUID %>
+</p>
+
+<p>
+  <strong>Last CallStatus:</strong>
+  <%= @call.CallStatus %>
 </p>
 
 <%= link_to 'Edit', edit_call_path(@call) %> |
