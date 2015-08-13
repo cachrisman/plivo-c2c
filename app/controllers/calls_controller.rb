@@ -8,6 +8,15 @@ class CallsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html
+      format.xml {
+        r = {'Speak' => "Welcome to Charlie's demo conference.",
+           'Conference' => "demo" + Time.now().strftime('%Y%m%d')}.to_xml(:root=>'Response')
+        render :xml => r
+      }
+
+
   end
 
   def new
@@ -22,12 +31,9 @@ class CallsController < ApplicationController
     respond_to do |format|
       if @call.save
         id = @call.id
-        response1 = make_call(call_params['from'], id)
-        response2 = make_call(call_params['to'], id)
-        p "Response1: " + response1.to_s
-        p "Response2: " + response2.to_s
+        response1 = make_call(call_params['From'], id)
+        response2 = make_call(call_params['To'], id)
         uuids = {'request_uuids'=> [response1[1]['request_uuid'],response2[1]['request_uuid']]}
-        p "Request_uuids: " + uuids.to_s
         @call.update(uuids)
         format.html { redirect_to @call, notice: 'Call was successfully created.' }
         format.json { render :show, status: :created, location: @call }
@@ -96,7 +102,7 @@ class CallsController < ApplicationController
     end
 
     def call_params
-      params.require(:call).permit(:name, :from, :to)
+      params.require(:call).permit(:name, :From, :To)
     end
 
     def update_call_params
