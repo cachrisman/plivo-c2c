@@ -7,7 +7,7 @@ class CallsController < ApplicationController
   def index
     @calls = Call.all
     r = {'Speak' => "Welcome to Charlie's demo conference.",
-         'Conference' => "demo" + Time.now().strftime('%Y%m%d-%H%M%S')}.to_xml(:root=>'Response')
+         'Conference' => "demo" + Time.now().strftime('%Y%m%d')}.to_xml(:root=>'Response')
     respond_to do |format|
       format.html
       format.xml { render :xml => r }
