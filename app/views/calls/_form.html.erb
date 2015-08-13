@@ -11,16 +11,19 @@
     </div>
   <% end %>
 
+
   <div class="field">
-    <%= f.label :to %><br>
-    <%= f.text_field :to %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, value: "Charlie" %>
   </div>
   <div class="field">
     <%= f.label :from %><br>
-    <%= f.text_field :from %>
+    <%= f.text_field :from, value: "13039025082" %>
   </div>
-  <%= f.hidden_field :callback_url, :value => root_url + 'callback' %>
-  <%= f.hidden_field :callback_method, :value => 'GET' %>
+  <div class="field">
+    <%= f.label :to %><br>
+    <%= f.text_field :to, value: "15106299488" %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

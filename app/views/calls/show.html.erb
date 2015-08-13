@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>To:</strong>
-  <%= @call.to %>
+  <strong>From:</strong>
+  <%= @call.name %> &lt<%= @call.from %>&gt
 </p>
 
 <p>
-  <strong>From:</strong>
-  <%= @call.from %>
+  <strong>To:</strong> &lt<%= @call.to %>&gt
 </p>
 
-<%= link_to 'Edit', edit_call_path(@call) %> |
-<%= link_to 'Back', calls_path %>
+<%= link_to 'Hangup', hangup_path(@call) %> |
+<%= link_to 'New Call', new_call_path %> |
+<%= link_to 'Show all calls in progress', calls_path %>
