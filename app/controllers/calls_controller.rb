@@ -24,9 +24,11 @@ class CallsController < ApplicationController
         id = @call.id
         response1 = make_call(call_params['from'], id)
         response2 = make_call(call_params['to'], id)
-        # p "Response1: " + response1.to_s
-        # p "Response2: " + response2.to_s
-        @call.update({'request_uuids'=> [response1[1]['request_uuid'],response2[1]['request_uuid']]})
+        p "Response1: " + response1.to_s
+        p "Response2: " + response2.to_s
+        uuids = {'request_uuids'=> [response1[1]['request_uuid'],response2[1]['request_uuid']]}
+        p "Request_uuids: " + uuids.to_s
+        @call.update(uuids)
         format.html { redirect_to @call, notice: 'Call was successfully created.' }
         format.json { render :show, status: :created, location: @call }
       else
@@ -38,7 +40,7 @@ class CallsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @call.request_uuids.include?(params[:RequestUUID]) and @call.update(update_call_params)
+      if @call['request_uuids'].include?(params[:RequestUUID]) and @call.update(update_call_params)
         r = {'Speak' => "Welcome to Charlie's demo conference.",
              'Conference' => "demo" + Time.now().strftime('%Y%m%d')}.to_xml(:root=>'Response')
         format.html { redirect_to @call, notice: 'Call was successfully updated.' }
